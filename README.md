@@ -1,2 +1,2 @@
 # drum-practice-generator
-本地运行的 AI 电子鼓练习曲生成器。 拖入一首歌 → AI 提取鼓轨 → 按你设定的比例降低/去除鼓声 → 可选变速、加节拍器 → 输出可直接用来练鼓的伴奏文件。
+local drum-practice-music-generator
