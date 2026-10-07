@@ -1,0 +1,33 @@
+# ============================================================================
+#  PyTorch CUDA runtime for NVIDIA RTX 50-series (Blackwell, sm_120)
+# ----------------------------------------------------------------------------
+#  install.bat / app\setup.py install PyTorch directly with an explicit
+#  --index-url, because only a CUDA wheel index carries the GPU build.  This
+#  file documents the combination that was actually verified.
+#
+#  Verified wheel availability on 2026-10-07 (cp311 + cp312, win_amd64):
+#      https://download.pytorch.org/whl/cu128/torch/   -> torch 2.9.1+cu128  OK
+#      https://download.pytorch.org/whl/cu130/torch/   -> torch 2.9.1+cu130  OK
+#      https://mirror.sjtu.edu.cn/pytorch-wheels/cu128/ -> torch 2.9.1+cu128 OK
+#
+#  Why cu128 is the default
+#      Both builds support Blackwell (sm_120); the reference machine's driver
+#      reports CUDA UMD 13.4, and a CUDA 12.8 build runs fine on a 13.x driver
+#      because the driver is backward compatible and PyTorch ships its own CUDA
+#      runtime.  What decided it was *download speed* on a ~2.9 GB wheel:
+#
+#          mirror.sjtu.edu.cn (cu128)   4.95 - 17.85 MB/s
+#          download.pytorch.org         1.87 -  3.41 MB/s
+#          (and on one slow route, 0.02 - 0.22 MB/s -> 4+ hours)
+#
+#      Only cu128 has a domestic mirror, so cu128 is the default.  Use
+#      `install.bat --variant cu130` to force the CUDA 13.0 build instead.
+#
+#  Do NOT `pip install torch` from plain PyPI: the default Windows wheel there
+#  is CPU-only, so you would silently lose GPU support.
+#
+#  Manual install (equivalent to what the installer does):
+#      pip install torch==2.9.1 --index-url https://mirror.sjtu.edu.cn/pytorch-wheels/cu128
+#      # or, from the official index:
+#      pip install torch==2.9.1 --index-url https://download.pytorch.org/whl/cu128
+# ============================================================================

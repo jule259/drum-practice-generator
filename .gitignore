@@ -1,0 +1,39 @@
+# 虚拟环境
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# 模型权重（体积大，按需下载）
+models/*
+!models/.gitkeep
+!models/README.md
+
+# 处理产物
+temp/*
+!temp/.gitkeep
+!temp/README.md
+output/*
+!output/.gitkeep
+
+# 日志
+logs/*
+!logs/.gitkeep
+
+# 内置工具（FFmpeg / Rubber Band 二进制）
+tools/
+
+# 自测临时目录
+.selftest-tmp/
+.e2e-tmp/
+
+# start.bat 的 GPU 探测临时文件
+.gpu_probe.tmp
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+*.swp

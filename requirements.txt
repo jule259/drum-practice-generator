@@ -1,0 +1,50 @@
+# ============================================================================
+#  Drum Practice Generator - Python dependencies
+# ----------------------------------------------------------------------------
+#  Target: Windows 11 x64 / Python 3.11 / NVIDIA RTX 50-series (Blackwell sm_120)
+#
+#  IMPORTANT -- PyTorch is NOT listed here on purpose.
+#  torch must be installed from the NVIDIA CUDA wheel index, which pip cannot
+#  express reliably inside a single requirements file across driver versions.
+#  install.bat installs it explicitly:
+#
+#      pip install torch==2.9.1 --index-url https://download.pytorch.org/whl/cu130
+#
+#  Full install order (install.bat does exactly this):
+#      1. pip install -r requirements-torch.txt
+#      2. pip install -r requirements.txt
+# ============================================================================
+
+# --- AI source separation -------------------------------------------------
+# Demucs v4 (Hybrid Transformer Demucs). MIT licensed, maintained by the
+# original author (Alexandre Defossez / Kyutai). Pulls in: sphn, einops,
+# julius, lameenc, pyyaml, safetensors, tqdm, huggingface-hub.
+demucs==4.1.0
+
+# --- Web layer ------------------------------------------------------------
+fastapi==0.142.2
+uvicorn[standard]==0.54.0
+python-multipart==0.0.32
+pydantic==2.13.5
+
+# --- Audio / numerics -----------------------------------------------------
+# numpy is pulled in by demucs/sphn as well; pinned for reproducibility.
+numpy==2.3.5
+# soundfile = libsndfile bindings. Used for fast WAV read/write of the
+# intermediate stem files. MP3/FLAC/M4A decoding is done by FFmpeg.
+soundfile==0.14.0
+
+# --- FFmpeg fallback ------------------------------------------------------
+# Ships a complete static FFmpeg (~84 MB, gyan.dev essentials build) inside the
+# wheel. install.bat tries a direct HTTP download first and only falls back to
+# this, because a single download host can be slow or unreachable while PyPI
+# (with mirrors and resume) still works. It has no ffprobe, so
+# app/audio/ffmpeg.py parses ffmpeg's own stderr for metadata in that case.
+# Safe to remove if your FFmpeg download succeeds or FFmpeg is already on PATH.
+imageio-ffmpeg==0.6.0
+
+# --- Optional: high quality time-stretch ----------------------------------
+# Only used when the Rubber Band CLI (rubberband.exe) is present on PATH.
+# If Rubber Band is missing the app falls back to FFmpeg's atempo filter,
+# which is bundled and always available. Safe to remove this line.
+# pyrubberband==0.4.0

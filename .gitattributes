@@ -1,0 +1,49 @@
+# ============================================================================
+#  Line-ending policy
+# ----------------------------------------------------------------------------
+#  This matters for correctness, not just tidiness:
+#
+#  * Windows cmd.exe cannot parse a .bat file that uses LF-only line endings.
+#    It mis-tokenizes commands mid-line - "cd /d" gets executed as "s" and "/d",
+#    which makes the script abort instantly (the window flashes and closes).
+#
+#  * Python's source encoding for .py files is UTF-8 regardless of platform, and
+#    no file in this project relies on CRLF, so normalising them is safe.
+#
+#  Declaring "eol=crlf" forces CRLF in the working tree on every platform, so
+#  the .bat files keep working no matter where the repo is cloned or with what
+#  core.autocrlf setting.
+# ============================================================================
+
+# Batch scripts must be CRLF in the working tree on every platform.
+*.bat           text eol=crlf
+*.cmd           text eol=crlf
+
+# Python and docs are fine with the platform default.
+*.py            text
+*.md            text
+*.txt           text
+*.js            text
+*.css           text
+*.html          text
+*.json          text
+*.yml           text
+*.yaml          text
+
+# Binary assets - never touch these.
+*.png           binary
+*.jpg           binary
+*.jpeg          binary
+*.gif           binary
+*.ico           binary
+*.wav           binary
+*.mp3           binary
+*.flac          binary
+*.ogg           binary
+*.webp          binary
+*.zip           binary
+*.exe           binary
+*.dll           binary
+*.pyd           binary
+*.th            binary
+*.safetensors   binary
